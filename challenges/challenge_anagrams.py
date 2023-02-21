@@ -10,15 +10,18 @@ def merge_sort(string: str):
     return merge(left, right)
 
 
-def merge(left: list, right: list):
-    result = []
+def merge(left: str, right: str):
+    result = ''
+
     while len(left) > 0 and len(right) > 0:
         if left[0] < right[0]:
-            result.append(left.pop(0))
+            result += left[0]
+            left = left[1:]
         else:
-            result.append(right.pop(0))
+            result += right[0]
+            right = right[1:]
 
-    if left == []:
+    if left == '':
         result += right
     else:
         result += left
@@ -27,8 +30,11 @@ def merge(left: list, right: list):
 
 
 def is_anagram(first_string, second_string):
-    first = merge_sort(first_string)
-    second = merge_sort(second_string)
+    first = merge_sort(first_string.lower())
+    second = merge_sort(second_string.lower())
+
+    if first == '' or second == '':
+        return (first, second, False)
 
     if first == second:
         return (first, second, True)
